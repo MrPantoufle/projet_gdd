@@ -17,8 +17,6 @@ void setup() {
 
 void draw() {
   background(50);
-  // horizontal angle phi = PI*(2*mouseX/width -1)
-  // vertical angle theta = (PI/2)*(2*mouseY/height/2 - 1)
   camera(width/2-distance*sin(TWO_PI*mouseX/width)*sin(PI*mouseY/height), 
     height/2+distance*cos(PI*mouseY/height), 
     -distance*cos(TWO_PI*mouseX/width)*sin(PI*mouseY/height), 
@@ -50,7 +48,8 @@ void draw() {
   S.shift(flow);
 }
 
-void mouseWheel(MouseEvent event) {  // for zooming in and out
+// Gestion du zoom à la souris
+void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   distance += e;
 }
@@ -64,11 +63,15 @@ ArrayList<Vector> badCurvatureFlow(ArrayList<Vertex> vertices) {
     ArrayList<Vertex> neigh = currentVer.neighbors();
     for(Vertex v : neigh) {
        Vector tmp = new Vector(v.xpos, v.ypos, v.zpos);
+<<<<<<< HEAD:example_3D_25_11.pde
        tmp.normalize();
+=======
+       temp.normalize();
+>>>>>>> refs/remotes/origin/master:example_3D_25_11/example_3D_25_11.pde
        currentShift.add(tmp);
     }
-    //currentShift.normalize();
-    //currentShift.mult(0.1);
+    currentShift.normalize();
+    currentShift.mult(0.1);
     shifts.add(currentShift);
   }
   
@@ -78,10 +81,11 @@ ArrayList<Vector> badCurvatureFlow(ArrayList<Vertex> vertices) {
       currentVer.zpos -= centre.z;
   }
 
-  
   return shifts;
 }
 
+
+// Calculer le centre de gravité
 Vector gravity(ArrayList<Vertex> vertices) {
    Vector centre = new Vector();
    for(Vertex v : vertices) {
@@ -100,8 +104,8 @@ class Vertex {
   float xpos; //<>//
   float ypos;
   float zpos;
-  Edge edgefrom;   // one of the oriented edges emanating from the vertex
-  int status;    // for listing purposes
+  Edge edgefrom;
+  int status;
 
   Vertex(float x, float y, float z) {  
     xpos = x + width/2;
@@ -111,7 +115,6 @@ class Vertex {
   }
 
   void drawVertex(int[] fillColor) {
-    //noStroke();
     stroke(fillColor[0], fillColor[1], fillColor[2]);
     lights();
     pushMatrix();
@@ -120,10 +123,10 @@ class Vertex {
     popMatrix();
   }
 
-  ArrayList<Vertex> neighbors() {  // ordered list of adjacent vertices
+  ArrayList<Vertex> neighbors() { 
     ArrayList<Vertex> nlist = new ArrayList<Vertex>();
     Edge current = this.edgefrom;
-    Vertex start = current.last;   // adjacent vertex at the end of edgefrom 
+    Vertex start = current.last; 
     do {
       nlist.add(current.last);
       current = current.previous.opposite;
