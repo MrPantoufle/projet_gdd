@@ -11,7 +11,7 @@ float f = 100;
 void setup() {
   size(500, 500, P3D);
   distance = width;
-  S = importPLY("dodecahedron.ply");
+  S = importPLY("./res/dodecahedron.ply");
   //S = pyramid();
   scale = width/10;
 }
