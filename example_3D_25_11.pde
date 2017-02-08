@@ -59,7 +59,6 @@ void mouseWheel(MouseEvent event) {  // for zooming in and out
 
 ArrayList<Vector> badCurvatureFlow(ArrayList<Vertex> vertices) {
   Vector centre = gravity(vertices);
-  println("Centre de gravité actuel : (" + centre.x + ", " + centre.y + ", " + centre.z + ")");
   
   ArrayList<Vector> shifts = new ArrayList<Vector>();
   for(Vertex currentVer : vertices) {
@@ -91,7 +90,6 @@ Vector gravity(ArrayList<Vertex> vertices) {
       centre.x += v.xpos;
       centre.y += v.ypos;
       centre.z += v.zpos;
-      println("Point actuel : (" + centre.x + ", ...)");
    }
    centre.mult(1.0/(float)vertices.size());
   return centre;
@@ -347,7 +345,6 @@ Edge importPLY(String filename) {
     }
     i++;
   }
-  println("v=", numVertices, " f=", numFaces);
 
   Vertex[] v = new Vertex[numVertices];
   Edge[] e = new Edge[2*maxFaceDegree*numFaces];  // two directions!
@@ -356,10 +353,7 @@ Edge importPLY(String filename) {
   // Vertex' 3D coordinates
   for (int j = 0; j < numVertices; j++) {
     String[] keywords = split(lines[i], ' ');
-    //println("lines[i]: " + lines[i]);
-    //println("keywords: " + keywords.length);
     v[j] = new Vertex(scalingFactor*float(keywords[0]), scalingFactor*float(keywords[1]), scalingFactor*float(keywords[2]));
-    //println("Vertex j: " + v[j].xpos + ", " + v[j].ypos + ", " + v[j].zpos);
     i++;    // increase line number
   }
 
@@ -380,7 +374,6 @@ Edge importPLY(String filename) {
     // set the degree and status of the face with first edge as inedge
     f[j] = new Face(null, degree);  
     f[j].name = "f"+char(j);
-    //println(j,degree,int(keywords[1]),int(keywords[2]));
     for (int k = 0; k < degree; k++) { // list through the edges
       int startV = int(keywords[1+k]);
       int endV = int(keywords[1+(k + 1)%degree]);
@@ -412,7 +405,6 @@ Edge importPLY(String filename) {
     for (int j = 0; j < numVertices; j++) {
       if (edgeIncidence[i][j].face != null) {
         e[currentVIndex] = edgeIncidence[i][j];
-        //println(i,j);
         currentVIndex++;
       }
     }
@@ -420,10 +412,8 @@ Edge importPLY(String filename) {
 
   // test
   for (i = 0; i < currentVIndex; i++) {
-    println(i, e[i], e[i].previous, e[i].face);
   }
   for (i = 0; i < numFaces; i++) {
-    //println(f[i],f[i].inedge);
   }
 
   return(f[0].inedge);
@@ -442,7 +432,6 @@ ArrayList<Face> faceTraversal(Face initialFace) {  // lists all faces starting f
   discoveredList.add(initialFace);
   while (discoveredList.size() > 0) {
     currentFace = discoveredList.get(0);
-    //println(" currentFace = " + currentFace.name);
     discoveredList.remove(0);
     neighborsList = currentFace.incidentFaces();
     for (Face f : neighborsList) {
@@ -472,7 +461,6 @@ ArrayList<Vertex> vertexTraversal(Vertex initialVertex) {  // lists all vertices
   discoveredList.add(initialVertex);
   while (discoveredList.size() > 0) {
     currentVertex = discoveredList.get(0);
-    //println(" currentVertex = " + currentVertex);
     discoveredList.remove(0);
     neighborsList = currentVertex.neighbors();
     for (Vertex f : neighborsList) {
