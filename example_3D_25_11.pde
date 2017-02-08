@@ -5,17 +5,15 @@ int[] nColor = {0, 100, 0};
 int vertexSize = 10;
 int maxFaceDegree = 8; // maximum number of edges in a face (suboptimal, used in ImportPLY)
 float scale;
-
 float f = 100;
 
 void setup() {
-  size(500, 500, P3D);
+  size(800, 600, P3D);
   distance = width;
   S = importPLY("./res/dodecahedron.ply");
   //S = pyramid();
-  scale = width/10;
+  scale = width/15;
 }
-
 
 void draw() {
   background(50);
