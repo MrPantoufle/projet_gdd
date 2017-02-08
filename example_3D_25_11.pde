@@ -5,7 +5,7 @@ int[] nColor = {0, 100, 0};
 int vertexSize = 10;
 int maxFaceDegree = 8; // maximum number of edges in a face (suboptimal, used in ImportPLY)
 float scale;
-float f = 100;
+float framerate = 500;
 
 void setup() {
   size(800, 600, P3D);
@@ -164,7 +164,7 @@ class Edge {  // oriented
       Vector s = shifts.get(i);
       biggestNorm = max(biggestNorm, s.norm());
     }
-    biggestNorm = width/(f*biggestNorm);
+    biggestNorm = width/(framerate*biggestNorm);
     for(int i = 0; i < list.size(); i++) {
       Vector s = shifts.get(i);
       s.mult(biggestNorm);
