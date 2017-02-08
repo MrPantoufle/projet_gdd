@@ -5,6 +5,7 @@ int[] nColor = {0, 100, 0};
 int vertexSize = 10;
 int maxFaceDegree = 8; // maximum number of edges in a face (suboptimal, used in ImportPLY)
 float scale;
+
 float f = 100;
 
 void setup() {
@@ -12,7 +13,7 @@ void setup() {
   distance = width;
   S = importPLY("dodecahedron.ply");
   //S = pyramid();
-  scale = width/5;
+  scale = width/10;
 }
 
 
@@ -429,159 +430,6 @@ Edge importPLY(String filename) {
 }
 
 
-
-Edge pyramid() {
-  Vertex[] v = new Vertex[5];
-  Edge[] e = new Edge[16];  // two directions!
-  Face[] f = new Face[5];
-
-  v[0] = new Vertex(0, 10, 0);    // apex
-  v[1] = new Vertex(0, 0, 10);
-  v[2] = new Vertex(10, 0, 0);
-  v[3] = new Vertex(0, 0, -10);
-  v[4] = new Vertex(-10, 0, 0);
-
-  e[0] = new Edge(v[0], v[1]);
-  e[1] = new Edge(v[1], v[0]);
-  e[0].opposite = e[1];
-  e[1].opposite = e[0];
-  e[2] = new Edge(v[0], v[2]);
-  e[3] = new Edge(v[2], v[0]);
-  e[2].opposite = e[3];
-  e[3].opposite = e[2];
-  e[4] = new Edge(v[0], v[3]);
-  e[5] = new Edge(v[3], v[0]);
-  e[4].opposite = e[5];
-  e[5].opposite = e[4];
-  e[6] = new Edge(v[0], v[4]);
-  e[7] = new Edge(v[4], v[0]);
-  e[6].opposite = e[7];
-  e[7].opposite = e[6];
-  e[8] = new Edge(v[1], v[2]);
-  e[9] = new Edge(v[2], v[1]);
-  e[8].opposite = e[9];
-  e[9].opposite = e[8];
-  e[10] = new Edge(v[2], v[3]);
-  e[11] = new Edge(v[3], v[2]);
-  e[10].opposite = e[11];
-  e[11].opposite = e[10];
-  e[12] = new Edge(v[3], v[4]);
-  e[13] = new Edge(v[4], v[3]);
-  e[12].opposite = e[13];
-  e[13].opposite = e[12];
-  e[14] = new Edge(v[4], v[1]);
-  e[15] = new Edge(v[1], v[4]);
-
-  v[0].edgefrom = e[0];   // e01
-  v[1].edgefrom = e[8];   // e12
-  v[2].edgefrom = e[10];  // e23
-  v[3].edgefrom = e[12];  // e34
-  v[4].edgefrom = e[14];  // e41
-
-  f[0] = new Face(e[15], 4);
-  f[1] = new Face(e[0], 3);
-  f[2] = new Face(e[2], 3);
-  f[3] = new Face(e[4], 3);
-  f[4] = new Face(e[6], 3);
-  f[0].name = "f0";
-  f[1].name = "f1";
-  f[2].name = "f2";
-  f[3].name = "f3";
-  f[4].name = "f4";
-
-
-  e[14].opposite = e[15];
-  e[15].opposite = e[14];
-  e[0].next = e[8];
-  e[0].previous = e[3];
-  e[0].face = f[1];
-  e[1].next = e[6];
-  e[1].previous = e[14];
-  e[1].face = f[4];
-  e[2].next = e[10];
-  e[2].previous = e[5];
-  e[2].face = f[2];
-  e[3].next = e[0];
-  e[3].previous = e[8];
-  e[3].face = f[1];
-  e[4].next = e[12];
-  e[4].previous = e[7];
-  e[4].face = f[3];
-  e[5].next = e[2];
-  e[5].previous = e[10];
-  e[5].face = f[2];
-  e[6].next = e[14];
-  e[6].previous = e[1];
-  e[6].face = f[4];
-  e[7].next = e[4];
-  e[7].previous = e[12];
-  e[7].face = f[3];
-  e[8].next = e[3];
-  e[8].previous = e[0];
-  e[8].face = f[1];
-  e[9].next = e[15];
-  e[9].previous = e[11];
-  e[9].face = f[0];
-  e[10].next = e[5];
-  e[10].previous = e[2];
-  e[10].face = f[2];
-  e[11].next = e[9];
-  e[11].previous = e[13];
-  e[11].face = f[0];
-  e[12].next = e[7];
-  e[12].previous = e[4];
-  e[12].face = f[3];
-  e[13].next = e[11];
-  e[13].previous = e[15];
-  e[13].face = f[0];
-  e[14].next = e[1];
-  e[14].previous = e[6];
-  e[14].face = f[4];
-  e[15].next = e[13];
-  e[15].previous = e[9];
-  e[15].face = f[0];
-
-  return e[0];
-}
-
-void cube() {
-  // temp subroutine probably not good for storing 2 faces of a cube
-  Vertex p000, p100, p101, p001, p010, p110;
-  Edge epq, eqr, erp, e200, e102, e201, e002, e200bis, e120, e210, e020;
-  Face f1, f2;
-  p000 = new Vertex(0, 0, 0);
-  p100 = new Vertex(30, 0, 0);
-  p101 = new Vertex(30, 0, 30);
-  p001 = new Vertex(0, 0, 30);
-  p010 = new Vertex(0, 30, 0);
-  p110 = new Vertex(30, 30, 0);
-  e200 = new Edge(p000, p100);
-  e102 = new Edge(p100, p101);
-  e201 = new Edge(p101, p001);
-  e002 = new Edge(p001, p000);
-  e200.next = e102;
-  e102.next = e201;
-  e201.next = e002;
-  e002.next = e200;
-  f1 = new Face(e200, 4);
-  e200.face = f1;
-  e200bis = new Edge(p100, p000);
-  e020 = new Edge(p000, p010);
-  e210 = new Edge(p010, p110);
-  e120 = new Edge(p110, p100);
-  e200bis.next = e020;
-  e020.next = e210;
-  e210.next = e120;
-  e120.next = e200bis;
-  f2 = new Face(e200bis, 4);
-  println(f1);
-  println(f2);
-  println(f1 == f2);
-  //  S = new Face[2];
-  //  S[0] = f1;
-  //  S[1] = f2;
-  //S = new Surface();
-}
 
 ArrayList<Face> faceTraversal(Face initialFace) {  // lists all faces starting from initialFace
   // assumes all face statuses are = 0
