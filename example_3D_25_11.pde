@@ -10,7 +10,7 @@ float framerate = 500;
 void setup() {
   size(800, 600, P3D);
   distance = width;
-  S = importPLY("./res/dodecahedron.ply");
+  S = importPLY("./res/tetrahedron.ply");
   //S = pyramid();
   scale = width/15;
 }
@@ -64,7 +64,7 @@ ArrayList<Vector> badCurvatureFlow(ArrayList<Vertex> vertices) {
     ArrayList<Vertex> neigh = currentVer.neighbors();
     for(Vertex v : neigh) {
        Vector tmp = new Vector(v.xpos, v.ypos, v.zpos);
-       //tmp.normalize();
+       tmp.normalize();
        currentShift.add(tmp);
     }
     //currentShift.normalize();
@@ -97,7 +97,7 @@ Vector gravity(ArrayList<Vertex> vertices) {
 ///////////////// CLASSES /////////////////
 
 class Vertex {
-  float xpos;
+  float xpos; //<>//
   float ypos;
   float zpos;
   Edge edgefrom;   // one of the oriented edges emanating from the vertex
@@ -344,7 +344,7 @@ Edge importPLY(String filename) {
     i++;
   }
 
-  Vertex[] v = new Vertex[numVertices];
+  Vertex[] v = new Vertex[numVertices]; //<>//
   Edge[] e = new Edge[2*maxFaceDegree*numFaces];  // two directions!
   Face[] f = new Face[numFaces];
 
@@ -360,8 +360,8 @@ Edge importPLY(String filename) {
   // so that edges are indexed by two vertex indices 
 
   // start by creating a complete graph, to garantee valid pointers
-  Edge[][] edgeIncidence = new Edge[numVertices][numVertices];
-  for (int j = 0; j < numVertices; j++) {
+  Edge[][] edgeIncidence = new Edge[numVertices][numVertices]; //<>//
+  for (int j = 0; j < numVertices; j++) { //<>//
     for (int k = 0; k < numVertices; k++) {
       edgeIncidence[j][k] = new Edge(v[j], v[k]);
     }
