@@ -63,11 +63,7 @@ ArrayList<Vector> badCurvatureFlow(ArrayList<Vertex> vertices) {
     ArrayList<Vertex> neigh = currentVer.neighbors();
     for(Vertex v : neigh) {
        Vector tmp = new Vector(v.xpos, v.ypos, v.zpos);
-<<<<<<< HEAD:example_3D_25_11.pde
        tmp.normalize();
-=======
-       temp.normalize();
->>>>>>> refs/remotes/origin/master:example_3D_25_11/example_3D_25_11.pde
        currentShift.add(tmp);
     }
     currentShift.normalize();
