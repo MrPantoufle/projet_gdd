@@ -10,7 +10,7 @@ float framerate = 500;
 void setup() {
   size(800, 600, P3D);
   distance = width;
-  S = importPLY("./res/tetrahedron.ply");
+  S = importPLY("../res/octahedron.txt");
   //S = pyramid();
   scale = width/15;
 }
